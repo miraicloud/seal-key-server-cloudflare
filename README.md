@@ -96,6 +96,11 @@ Requirements: Node.js 22 or newer, npm, a paid Workers account, and a registered
 The deployment workflow contains no key material. `.dev.vars` and `.env` are ignored, and Worker
 secrets remain stored in Cloudflare across code deployments.
 
+For a brand-new Worker, run the **Initialize Cloudflare master key** workflow once. It generates
+the BLS scalar inside the Actions runner, writes it directly to the Worker's `MASTER_KEY` secret,
+and reports only the public key needed for on-chain registration. It refuses to replace an existing
+`MASTER_KEY`.
+
 ## Server modes
 
 ### Open

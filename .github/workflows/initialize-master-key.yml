@@ -1,0 +1,31 @@
+name: Initialize Cloudflare master key
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  initialize:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Generate and store master key
+        id: key
+        run: node scripts/initialize-cloudflare-master-key.mjs >> "$GITHUB_OUTPUT"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Record public key
+        env:
+          PUBLIC_KEY: ${{ steps.key.outputs.public_key }}
+        run: |
+          echo "Seal public key: $PUBLIC_KEY"
+          echo "Seal public key: \`$PUBLIC_KEY\`" >> "$GITHUB_STEP_SUMMARY"
