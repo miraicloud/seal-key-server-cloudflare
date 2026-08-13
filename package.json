@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/miraicloud/seal-cloudflare.git"
+    "url": "git+https://github.com/miraicloud/seal-key-server-cloudflare.git"
   },
   "engines": {
     "node": ">=22"
