@@ -1,0 +1,9 @@
+# Development placeholders only. Never commit real key material.
+MASTER_KEY=0xREPLACE_WITH_32_BYTE_NON_ZERO_BLS_SCALAR
+
+# Optional inbound authentication:
+# API_KEY=replace-with-a-long-random-value
+
+# Optional authenticated RPC:
+# FULL_NODE_RPC_API_KEY=replace-with-provider-key
+# MAINNET_FULL_NODE_RPC_API_KEY=replace-with-provider-key

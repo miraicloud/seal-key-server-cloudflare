@@ -1,0 +1,8 @@
+Seal Cloudflare
+Copyright 2026 Miraicloud contributors
+
+This product includes a TypeScript reimplementation of protocol and cryptographic behavior from
+MystenLabs Seal, Copyright (c) Mysten Labs, Inc., licensed under the Apache License 2.0:
+https://github.com/MystenLabs/seal
+
+Upstream compatibility regression vectors are reproduced in the test suite under the same license.

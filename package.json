@@ -1,0 +1,39 @@
+{
+  "name": "seal-cloudflare",
+  "version": "0.1.0",
+  "description": "An on-demand MystenLabs Seal-compatible key server for Cloudflare Workers",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miraicloud/seal-cloudflare.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "check": "tsc --noEmit",
+    "dev": "wrangler dev",
+    "test": "vitest run",
+    "test:live": "LIVE_SUI_TESTS=1 vitest run test/live.test.ts",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@mysten/bcs": "2.1.0",
+    "@mysten/sui": "2.24.0",
+    "@noble/curves": "2.2.0",
+    "@noble/hashes": "2.0.1",
+    "semver": "7.7.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20260813.1",
+    "@mysten/seal": "1.4.0",
+    "@types/node": "24.13.3",
+    "@types/semver": "7.8.0",
+    "typescript": "6.0.3",
+    "vitest": "3.2.7",
+    "wrangler": "4.122.0"
+  }
+}
