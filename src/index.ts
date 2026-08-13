@@ -174,7 +174,7 @@ async function handleFetchKey(request: Request, env: Env, config: RuntimeConfig)
       const id = fullKeyId(firstPackageId, innerId);
       const key = extractUserSecretKey(masterKey, id);
       return {
-        id: toBase64(id),
+        id: Array.from(id),
         encrypted_key: encryptedKeyJson(encryptUserSecretKey(key, payload.encKeyBytes)),
       };
     }),
