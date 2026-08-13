@@ -108,7 +108,7 @@ export interface ParsedFetchKeyRequest {
 }
 
 export interface DecryptionKeyResponse {
-  id: string;
+  id: number[];
   encrypted_key: [string, string];
 }
 

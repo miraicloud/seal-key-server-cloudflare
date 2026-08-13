@@ -232,6 +232,18 @@ npm audit           # dependency advisory scan
 
 The deterministic suite includes Rust regression vectors for HKDF derivation, signed personal messages, and signed request BCS; BLS extraction/ElGamal/PoP equations; current `@mysten/seal` `SessionKey` output; all server modes; API headers; and request-size enforcement.
 
+Run the live Seal TypeScript SDK encrypt/decrypt flow against the deployed Worker:
+
+```sh
+SUI_ADDRESS=0xYOUR_TESTNET_ADDRESS npm run test:e2e
+```
+
+The address must be present in the Sui CLI Ed25519 keystore and in the Testnet fixture allowlist.
+Alternatively, pass its Bech32 private key through `SUI_PRIVATE_KEY`. The script encrypts locally,
+builds an `allowlist::seal_approve` PTB, creates a signed Seal session, obtains the derived key from
+`/v1/fetch_key`, decrypts locally, and asserts byte-for-byte equality. Setup transactions use Sui
+address-balance gas by calling `tx.setGasPayment([])`.
+
 ## Security notes
 
 A Worker secret is encrypted at rest and exposed to Worker code only through its binding, but using this design places the master key inside Cloudflare's execution trust boundary. That is materially different from an enclave or a self-operated host. Read [SECURITY.md](SECURITY.md) before production use and apply Cloudflare rate limiting—the public fetch endpoint performs intentionally expensive cryptography.
