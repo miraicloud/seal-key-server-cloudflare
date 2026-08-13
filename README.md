@@ -85,6 +85,9 @@ Requirements: Node.js 22 or newer, npm, a paid Workers account, and a registered
    is `seal-key-server`, producing `https://seal-key-server.miraicloud.workers.dev` for the
    `miraicloud` Workers account subdomain.
 
+   The deployed Testnet key-server object is
+   `0x501b8b579470ef879b6c9e581e7b7d9c1ffe7fc749e7e2366bfaa7b655b7b3c3`.
+
 5. Confirm the service proof through your deployed URL:
 
    ```sh

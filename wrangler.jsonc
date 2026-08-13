@@ -13,6 +13,6 @@
   },
   "vars": {
     "NETWORK": "testnet",
-    "KEY_SERVER_CONFIG": "{\"mode\":\"open\",\"keyServerObjectId\":\"0x0\"}"
+    "KEY_SERVER_CONFIG": "{\"mode\":\"open\",\"keyServerObjectId\":\"0x501b8b579470ef879b6c9e581e7b7d9c1ffe7fc749e7e2366bfaa7b655b7b3c3\"}"
   }
 }
