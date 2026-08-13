@@ -7,6 +7,28 @@ The implementation tracks upstream Seal key server `0.6.13` at commit [`baff7c5`
 > [!IMPORTANT]
 > Use a **paid Cloudflare Workers plan**. BLS12-381 hash-to-curve and pairing work can exceed the free plan's 10 ms CPU allowance. The supplied configuration requests 30 seconds of CPU time. See [Workers limits](https://developers.cloudflare.com/workers/platform/limits/).
 
+## Live Testnet deployment
+
+The repository's `main` branch deploys automatically to
+[`https://seal-key-server.miraicloud.workers.dev`](https://seal-key-server.miraicloud.workers.dev/health).
+The live service was last verified on August 13, 2026 with `@mysten/seal` 1.4.0.
+
+| Resource | Value |
+| --- | --- |
+| Worker | `seal-key-server` |
+| Network | Sui Testnet |
+| Key-server object | [`0x501b8b579470ef879b6c9e581e7b7d9c1ffe7fc749e7e2366bfaa7b655b7b3c3`](https://testnet.suivision.xyz/object/0x501b8b579470ef879b6c9e581e7b7d9c1ffe7fc749e7e2366bfaa7b655b7b3c3) |
+| Registration transaction | [`HdDqjdfSAUqj2evqSM1WP41cTinD9VuDB57S7yojiVCJ`](https://testnet.suivision.xyz/txblock/HdDqjdfSAUqj2evqSM1WP41cTinD9VuDB57S7yojiVCJ) |
+| E2E policy package | `0xc5ce2742cac46421b62028557f1d7aea8a4c50f651379a79afdf12cd88628807` |
+| E2E allowlist object | [`0xe7411c57566894283716ccbed77d36027bb98ec2c696292089c93f983b745ad9`](https://testnet.suivision.xyz/object/0xe7411c57566894283716ccbed77d36027bb98ec2c696292089c93f983b745ad9) |
+| Latest verified deployment | [GitHub Actions run 31750465724](https://github.com/miraicloud/seal-key-server-cloudflare/actions/runs/31750465724) |
+
+The live E2E test encrypts locally, verifies the Worker's proof of possession, authorizes access by
+simulating a real `allowlist::seal_approve` PTB, fetches the derived key from `/v1/fetch_key`, and
+decrypts back to the exact plaintext. The fixture is for Testnet verification, not a production
+access-control policy. The deployed Worker currently uses open mode, so applications must enforce
+their intended authorization in their own `seal_approve*` policy.
+
 ## What is implemented
 
 - `POST /v1/fetch_key`, including the upstream 180 KiB streaming body limit
@@ -93,7 +115,7 @@ Requirements: Node.js 22 or newer, npm, a paid Workers account, and a registered
    ```sh
    curl -H 'Client-Sdk-Type: typescript' \
      -H 'Client-Sdk-Version: 1.4.0' \
-     'https://seal-key-server.miraicloud.workers.dev/v1/service?service_id=0xYOUR_KEY_SERVER_OBJECT_ID'
+     'https://seal-key-server.miraicloud.workers.dev/v1/service?service_id=0x501b8b579470ef879b6c9e581e7b7d9c1ffe7fc749e7e2366bfaa7b655b7b3c3'
    ```
 
 The deployment workflow contains no key material. `.dev.vars` and `.env` are ignored, and Worker
@@ -226,6 +248,7 @@ Add the non-secret header name, for example `x-api-key`, to `vars` in `wrangler.
 npm run check       # strict TypeScript
 npm test            # deterministic unit and SDK compatibility tests
 npm run test:live   # read-only testnet/mainnet gRPC and MVR checks
+npm run test:e2e    # live Seal SDK round trip through the deployed Worker
 npm run build       # Cloudflare dry-run bundle
 npm audit           # dependency advisory scan
 ```
@@ -235,7 +258,7 @@ The deterministic suite includes Rust regression vectors for HKDF derivation, si
 Run the live Seal TypeScript SDK encrypt/decrypt flow against the deployed Worker:
 
 ```sh
-SUI_ADDRESS=0xYOUR_TESTNET_ADDRESS npm run test:e2e
+SUI_ADDRESS=0x1f86f02d2a7187c33e790c667333220069c46e00141a9c18661a1340aef89ca2 npm run test:e2e
 ```
 
 The address must be present in the Sui CLI Ed25519 keystore and in the Testnet fixture allowlist.
