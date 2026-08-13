@@ -15,6 +15,7 @@
   "scripts": {
     "build": "wrangler deploy --dry-run --outdir dist",
     "check": "tsc --noEmit",
+    "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "test": "vitest run",
     "test:live": "LIVE_SUI_TESTS=1 vitest run test/live.test.ts",
