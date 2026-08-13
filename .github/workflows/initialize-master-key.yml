@@ -26,4 +26,6 @@ jobs:
       - name: Record public key
         env:
           PUBLIC_KEY: ${{ steps.key.outputs.public_key }}
-        run: echo "Seal public key: \`$PUBLIC_KEY\`" >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          echo "Seal public key: $PUBLIC_KEY"
+          echo "Seal public key: \`$PUBLIC_KEY\`" >> "$GITHUB_STEP_SUMMARY"
