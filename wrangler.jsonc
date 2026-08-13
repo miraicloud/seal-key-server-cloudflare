@@ -1,8 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "seal-cloudflare",
+  "name": "seal-key-server",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-13",
+  "workers_dev": true,
+  "preview_urls": false,
   "limits": {
     "cpu_ms": 30000
   },

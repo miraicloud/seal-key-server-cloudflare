@@ -80,15 +80,21 @@ Requirements: Node.js 22 or newer, npm, a paid Workers account, and a registered
    npx wrangler deploy
    ```
 
+   Pushes to `main` also deploy automatically after CI passes when the repository has
+   `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` Actions secrets. The configured Worker name
+   is `seal-key-server`, producing `https://seal-key-server.miraicloud.workers.dev` for the
+   `miraicloud` Workers account subdomain.
+
 5. Confirm the service proof through your deployed URL:
 
    ```sh
    curl -H 'Client-Sdk-Type: typescript' \
      -H 'Client-Sdk-Version: 1.4.0' \
-     'https://YOUR_WORKER.workers.dev/v1/service?service_id=0xYOUR_KEY_SERVER_OBJECT_ID'
+     'https://seal-key-server.miraicloud.workers.dev/v1/service?service_id=0xYOUR_KEY_SERVER_OBJECT_ID'
    ```
 
-The repository does not deploy automatically and contains no key material. `.dev.vars` and `.env` are ignored.
+The deployment workflow contains no key material. `.dev.vars` and `.env` are ignored, and Worker
+secrets remain stored in Cloudflare across code deployments.
 
 ## Server modes
 
