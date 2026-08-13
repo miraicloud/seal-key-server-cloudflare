@@ -21,7 +21,7 @@ The live service was last verified on August 13, 2026 with `@mysten/seal` 1.4.0.
 | Registration transaction | [`HdDqjdfSAUqj2evqSM1WP41cTinD9VuDB57S7yojiVCJ`](https://testnet.suivision.xyz/txblock/HdDqjdfSAUqj2evqSM1WP41cTinD9VuDB57S7yojiVCJ) |
 | E2E policy package | `0xc5ce2742cac46421b62028557f1d7aea8a4c50f651379a79afdf12cd88628807` |
 | E2E allowlist object | [`0xe7411c57566894283716ccbed77d36027bb98ec2c696292089c93f983b745ad9`](https://testnet.suivision.xyz/object/0xe7411c57566894283716ccbed77d36027bb98ec2c696292089c93f983b745ad9) |
-| Latest verified deployment | [GitHub Actions run 31750465724](https://github.com/miraicloud/seal-key-server-cloudflare/actions/runs/31750465724) |
+| Deployment workflow | [Latest `main` runs](https://github.com/miraicloud/seal-key-server-cloudflare/actions/workflows/ci.yml?query=branch%3Amain) |
 
 The live E2E test encrypts locally, verifies the Worker's proof of possession, authorizes access by
 simulating a real `allowlist::seal_approve` PTB, fetches the derived key from `/v1/fetch_key`, and
